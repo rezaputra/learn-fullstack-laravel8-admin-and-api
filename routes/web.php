@@ -20,8 +20,8 @@ Auth::routes([
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return view('pages.home');
-    });
+        return view('pages.dashboard');
+    })->name('dashboard');
 
     
 });
