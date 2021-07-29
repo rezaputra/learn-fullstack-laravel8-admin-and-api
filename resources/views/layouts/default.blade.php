@@ -23,7 +23,7 @@
 
             <div id="layoutSidenav_content">
 
-                <main>
+                <main class="m-4">
 
                     @yield('content')
 

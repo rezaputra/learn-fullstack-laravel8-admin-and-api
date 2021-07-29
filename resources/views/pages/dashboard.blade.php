@@ -1,22 +1,27 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="container container-fluid px-5">
-        <h1 class="mt-4">Income reports</h1>
-        <div class="row">
+    <div class="container container-fluid">
+        <h1>Income reports</h1>
+        <div class="row my-3">
             <div class="col-xl-3 col-md-6">
-                <select class="form-select mb-4" aria-label="Default select example">
-                    <option selected>Monthly report</option>
-                    <option value="1">weekly report</option>
-                    <option value="2">Three month report</option>
-                    <option value="3">Six month report</option>
-                    <option value="3">Annual report</option>
-                </select>
+                <form action="">
+                    <div class="input-group">
+                        <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                          <option selected value="0">Monthly report</option>
+                          <option value="1">Three month report</option>
+                          <option value="2">Six month report</option>
+                          <option value="3">Annual report</option>
+                        </select>
+                        <button class="btn btn-outline-secondary" type="submit">Select</button>
+                      </div>
+                </form>
             </div>
         </div>
+        <hr>
 
         {{-- report --}}
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body">
@@ -62,6 +67,7 @@
                 </div>
             </div>
         </div>
+        <hr>
         
         {{-- chart --}}
         <div class="row mt-4 d-flex align-items-center justify-content-around">
