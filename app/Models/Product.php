@@ -24,6 +24,6 @@ class Product extends Model
             'gallery_id',
             'id',
             'id'
-            );
+        );
     }
 }

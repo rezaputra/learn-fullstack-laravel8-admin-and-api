@@ -25,6 +25,8 @@ class ProductController extends Controller
         $products = Product::orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.product.index')->with(['products' => $products]);
+
+        // dd($products->name);
     }
 
     /**
@@ -194,19 +196,27 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $product->delete();
-        
-            $gallery = Gallery::findOrFail($product->galleryImage->gallery_id);
-            $gallery->delete();
+            if(File::exists(public_path('images\\'.$product->galleryImage->img0)) && File::exists(public_path('images\\'.$product->galleryImage->img1)) && File::exists(public_path('images\\'.$product->galleryImage->img2))){
+                File::delete(public_path('images\\'.$product->galleryImage->img0));
+                File::delete(public_path('images\\'.$product->galleryImage->img1));
+                File::delete(public_path('images\\'.$product->galleryImage->img2));
 
-            $image = Image::findOrFail($product->galleryImage->id);
-            $image->delete();
+                $product->delete();
 
-            DB::commit();
+                Gallery::where('id', $product->galleryImage->gallery_id)->delete();
 
-            return redirect()->route('products.index');
+                Image::where('id', $product->galleryImage->id)->delete();
+
+                DB::commit();
+
+                return redirect()->route('products.index');
+
+            }else{
+                dd('false'); 
+            }                       
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 }
+

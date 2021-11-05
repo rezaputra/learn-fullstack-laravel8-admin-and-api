@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTransactionController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,14 @@ Auth::routes([
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.dashboard');
-    })->name('dashboard');  
+    })->name('dashboard');
+
+    // Route::delete('product-transaction', [ProductTransactionController::class, 'destroy'])->name('product-transaction.destroy');
     
     Route::resource('products', ProductController::class);
+
+    Route::resource('transactions', TransactionController::class);
+
+    Route::resource('product_transactions', ProductTransactionController::class);
+
 });

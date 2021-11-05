@@ -36,21 +36,15 @@
                                 <td>Rp {{ number_format($product->price,2,',','.') }}</td>
                                 <td>
                                     <div class="d-flex align-items-center justify-content-evenly">
-                                        <div class="">
-                                            <!-- Button trigger show modal -->
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#a{{ $product->id }}">
-                                                <i class="fas fa-file-image"></i>
-                                            </button>
-                                            
+                                        <div class="">                                                                                       
                                             <!-- Modal show detail-->
-                                            @include('includes.show')
-
+                                            @include('pages.product.show')
                                         </div>
                                         <div class="">
                                             <a href="{{ Route('products.edit', $product->id) }}"><button class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></a>
                                         </div>
                                         <div class="">
-                                            @include('includes.productDelete')
+                                            @include('pages.product.delete')
                                         </div>
                                     </div>
                                 </td>

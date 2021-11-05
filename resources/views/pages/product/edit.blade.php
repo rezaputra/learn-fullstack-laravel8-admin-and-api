@@ -109,7 +109,7 @@
                         </div>
                         <hr>
                         <div>
-                            <button class="btn btn-success">Update product</button>
+                            <button type="submit" class="btn btn-success">Update product</button>
                         </div>
                     </form>
                 </div>
