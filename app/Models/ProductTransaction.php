@@ -11,4 +11,15 @@ class ProductTransaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'product_transaction';
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
 }

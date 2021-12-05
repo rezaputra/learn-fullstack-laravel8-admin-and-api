@@ -1,10 +1,12 @@
+
 @extends('layouts.default')
 
 @section('content')
+
     <div class="container container-fluid">
         <h1>Income reports</h1>
         <div class="row my-3">
-            <div class="col-xl-3 col-md-6">
+            {{-- <div class="col-xl-3 col-md-6">
                 <form action="">
                     <div class="input-group">
                         <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
@@ -16,7 +18,7 @@
                         <button class="btn btn-outline-secondary" type="submit">Select</button>
                       </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
         <hr>
 
@@ -28,7 +30,7 @@
                         <i class="fas fa-money-check-alt"></i> Total income                        
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <h5 class="mt-2">Rp.10.000.000,00</h5>
+                        <h5 class="mt-2">Rp {{ number_format($incomes,2,',','.') }}</h5>
                         <a href="#"><div class="small text-white"><i class="fas fa-angle-right"></i></div></a>
                     </div>
                 </div>
@@ -39,7 +41,7 @@
                         <i class="fas fa-shopping-cart"></i> Total seles                        
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <h5 class="mt-2">100 Products</h5>
+                        <h5 class="mt-2">{{ $sales }} Products</h5>
                         <a href="#"><div class="small text-white"><i class="fas fa-angle-right"></i></div></a>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                         <i class="fas fa-truck"></i> On the way                       
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <h5 class="mt-2">10 Products</h5>
+                        <h5 class="mt-2">{{ $pending }} Products</h5>
                         <a href="#"><div class="small text-white"><i class="fas fa-angle-right"></i></div></a>
                     </div>
                 </div>
@@ -61,7 +63,7 @@
                         <i class="fas fa-window-close"></i> Failed                       
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <h5 class="mt-2">2 Products</h5>
+                        <h5 class="mt-2">{{ $failed }} Products</h5>
                         <a href="#"><div class="small text-white"><i class="fas fa-angle-right"></i></div></a>
                     </div>
                 </div>
@@ -94,7 +96,115 @@
     </div>
 @endsection
 
-@push('before-script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="{{ asset('assets/demo/chart-pie-demo.js') }}"></script>
+@push('after-script')
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily =
+            '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = "#292b2c";
+
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: ["Success", "Panding", "Failed"],
+                datasets: [
+                    {
+                        data: [{{ $success }}, {{ $pending }}, {{ $failed }}],
+                        backgroundColor: ["#28a745", "#ffc107", "#dc3545"]
+                    }
+                ]
+            }
+        });
+
+
+
+        // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart");
+var myLineChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["January", 
+                "February", 
+                "March", 
+                "April", 
+                "May", 
+                "June", 
+                "July", 
+                "August", 
+                "September", 
+                "October", 
+                "November", 
+                "December"],
+    datasets: [{
+      label: "sale",
+      backgroundColor: "rgba(2,117,216,1)",
+      borderColor: "rgba(2,117,216,1)",
+      data: [{{ $month['january'] }}, 
+                {{ $month['february'] }}, 
+                {{ $month['march'] }}, 
+                {{ $month['april'] }}, 
+                {{ $month['may'] }}, 
+                {{ $month['june'] }}, 
+                {{ $month['july'] }},
+                {{ $month['august'] }}, 
+                {{ $month['september'] }}, 
+                {{ $month['october'] }}, 
+                {{ $month['november'] }}, 
+                {{ $month['december'] }}],
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'month'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 20,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+    </script>
 @endpush
+
+@push('before-script')
+
+@endpush
+
+
+
+{{-- @forelse ($transactions as $transaction)
+    @forelse ($transaction->products as $product)
+        {{ $product->id }}
+    @empty
+        
+    @endforelse
+    
+@empty
+    
+@endforelse --}}

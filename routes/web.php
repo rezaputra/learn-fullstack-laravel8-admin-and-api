@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTransactionController;
 use App\Http\Controllers\TransactionController;
@@ -22,11 +23,13 @@ Auth::routes([
 ]);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('pages.dashboard');
-    })->name('dashboard');
+    // Route::get('/', function () {
+    //     return view('pages.dashboard');
+    // })->name('dashboard');
 
     // Route::delete('product-transaction', [ProductTransactionController::class, 'destroy'])->name('product-transaction.destroy');
+
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
     Route::resource('products', ProductController::class);
 
